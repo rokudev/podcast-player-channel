@@ -1,20 +1,20 @@
 Function RSSParse()
-       working = GetPodCastInfo(m.feed) 'Was not working as an AA and contentNode wasn't working for URI
-       m.glb.Addfield("PodcastTitle", "string", true)
+       MyContent = GetPodCastInfo(m.feed)  'Parses through feed given by config.brs file
+       m.glb.Addfield("PodcastTitle", "string", true) 'Adds content for UI. This was not put in a content node because it requires less acessors to get the UI info
        m.glb.Addfield("uri", "string", true)
        m.glb.Addfield("summary", "string", true)
        m.glb.Addfield("author", "string", true)
-       m.glb.PodcastTitle = working["Title"].getText()
-       m.glb.uri = working["itunes:image"].getAttributes()["href"]
-       if working.DoesExist("tunes:summary")
-            m.glb.summary = working["itunes:summary"].getText()
+       m.glb.PodcastTitle = MyContent["Title"].getText()
+       m.glb.uri = MyContent["itunes:image"].getAttributes()["href"]
+       if MyContent.DoesExist("tunes:summary")
+            m.glb.summary = MyContent["itunes:summary"].getText()
        end if
-       m.glb.author = working["itunes:author"].getText()
+       m.glb.author = MyContent["itunes:author"].getText()
        
        m.ChildContent = GetEpisodes(m.feed)
        
                
-       m.TopContent = createObject("roSGNode", "ContentNode")
+       m.TopContent = createObject("roSGNode", "ContentNode") 'Appends all Podcast episodes to a single content node
        for each item in m.ChildContent
             row = createObject("roSGNode", "ContentNode")
             row.title = item["title"].getText()
