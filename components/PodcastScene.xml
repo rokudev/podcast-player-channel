@@ -14,6 +14,12 @@
 			repeat = "true"
 			duration = "1"
 		/>
+		
+		<Timer
+			id = "WarningTimer"
+			repeat = "false"
+			duration = "6"
+		/>
 
 		<Group
 			id = "Artwork"
@@ -280,6 +286,12 @@
 				translation = "[100,575]">
 			</Label>
 			<!-- Append Episodes for LabelListContent -->
+		<Dialog 
+			id = "Warning"
+			title = "Invalid Feed Warning"
+			message = "Some of the content from this feed was invalid. There may be some missing content from the playlist."
+			visible = "false"
+		/>
 
 	</children>
 

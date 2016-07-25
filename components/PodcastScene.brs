@@ -2,12 +2,19 @@
     m.PodcastArt = m.top.findNode("PodcastArt") 'Album Artwork
     m.Background = m.top.findNode("Background") 'Background Artwork
     m.AlbumPlay = m.top.findNode("AlbumPlay") 'Bottom Playbar Artwork
+    m.list = m.top.findNode("EpisodePicker") 'LabelList -- has wrapper class called "MyLabelList.xml
+    m.Warning = m.top.findNode("Warning") 'Warning message to be displayed if invalid feed
+    m.WarningTimer = m.top.findNode("WarningTimer") 'Timer node to display warning message
+    if m.global.warning = 1
+        m.Warning.visible = true
+        m.WarningTimer.control = "start"
+    end if
     
     m.Title = m.top.findNode("Title") 'Title Label
     m.Author = m.top.findNode("Author") 'Author/Artist Label
     
     m.Summary = m.top.findNode("Summary") ' Description/Summary Label under Album Artwork
-    m.list = m.top.findNode("EpisodePicker") 'LabelList -- has wrapper class called "MyLabelList.xml
+    
     m.list.color = m.global.ListColor 'LabelList -- Changes colors of labels
     m.current = m.top.findNode("PodcastPlaying") ' Label for currently playing Podcast located at the bottom of the album artwork
     m.AlbumRect = m.top.findNode("AlbumRect") 'Background shading rectangle for Current Podcast playing label
@@ -42,11 +49,16 @@
     m.PlayTime = m.top.findNode("PlayTime") 'One second timer to advance AudioCurrent every second
     m.PlayTime.ObserveField("fire", "TimeUpdate") 'Updates AudioCurrent string
     
+    m.WarningTimer.observeField("fire", "closeWarning") 'Dismisses warning message
     m.list.observeField("itemFocused", "setaudio") 'Set's audio content to focused item in Labellist
     m.list.observeField("itemSelected", "playaudio") 'Plays audio content in Label List
     m.global.observeField("FF", "FF") 'Calls function for trickplay when FastForward button is pressed
     m.global.observeField("Rewind", "Rewind") 'Calls function for trickplay when Rewind button is pressed
 end Function
+
+sub closeWarning()
+    m.Warning.visible = false
+end sub
 
 sub FF() 'FastForward function
     skip10Seconds(true)

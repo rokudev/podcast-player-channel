@@ -9,7 +9,7 @@
 	handled = false
         if press
 	    	if key="fastforward"
-	        	m.global.FF += 1
+	        		m.global.FF += 1
 				handled = true
 	    	else if key="rewind"
 	        	m.global.Rewind +=1

@@ -10,20 +10,31 @@ Function RSSParse()
             m.glb.summary = MyContent["itunes:summary"].getText()
        end if
        m.glb.author = MyContent["itunes:author"].getText()
+       m.glb.Addfield("warning", "int", true)
+       m.glb.warning = 0
        
        m.ChildContent = GetEpisodes(m.feed)
        
-               
+' #### Problem with RSS Feed will be in this for loop ####               
        m.TopContent = createObject("roSGNode", "ContentNode") 'Appends all Podcast episodes to a single content node
        for each item in m.ChildContent
             row = createObject("roSGNode", "ContentNode")
             row.title = item["title"].getText()
             row.ContentType = "audio"
             row.streamFormat = "mp3"
-            row.Length = item["itunes:duration"].getText().ToInt()
-            if row.Length = 0
-                x = item["itunes:duration"].getText().split(":")
-                row.Length = x[0].toInt()*360 + x[1].toInt() *60 + x[2].toInt()
+            if item.DoesExist("itunes:duration")
+                duration = 1
+                row.Length = item["itunes:duration"].getText().ToInt()
+                if item["itunes:duration"].getText().split(":").count() = 3
+                    x = item["itunes:duration"].getText().split(":")
+                    row.Length = x[0].toInt()*360 + x[1].toInt() *60 + x[2].toInt()
+                else if item["itunes:duration"].getText().split(":").count() = 2
+                    x = item["itunes:duration"].getText().split(":")
+                    row.Length = x[0].toInt()*60 + x[1].toInt()
+                end if
+            else
+                duration = 0
+                m.glb.warning = 1
             end if
             if item.DoesExist("itunes:summary")
                 row.Description = item["itunes:summary"].getText()
@@ -34,8 +45,10 @@ Function RSSParse()
                     row.Rating = "R"
                 end if
             end if    
-            m.TopContent.appendChild(row)
-       end for
+            if duration = 1
+                m.TopContent.appendChild(row)
+            end if
+      end for
 end Function
 
 Function GetPodCastInfo(PodcastUrl as String) as object'Used to get main info.. Podcast Title, Podcast Artwork, Summary, etc...

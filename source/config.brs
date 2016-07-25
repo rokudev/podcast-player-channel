@@ -3,7 +3,7 @@ Function LoadConfig()
 '###########     MODIFY FOR DIFFERENT PODCASTS AND SETTINGS      ############      
 '#####################     RSS Feed for Podcast     #########################
        
-        m.feed = "http://feeds.gimletmedia.com/hearreplyall"
+        m.feed = "http://www.npr.org/rss/podcast.php?id=510307" 'If there is a problem with the RSS feed, please see RSS Parse
                    
 '################    Modify to Change List Font Color     ###################    
        

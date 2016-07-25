@@ -1,30 +1,14 @@
-#
-#  Copyright (c) 2015 Roku, Inc. All rights reserved.
-#  Roku Channel Manifest File 
-#  Full spec at bit.ly/roku-manifest-file
-#
-
-##   Channel Details
 title=PodcastProject
 major_version=1
 minor_version=0
-build_version=0
-
-##   Channel Assets
-###  Main Menu Icons / Channel Poster Artwork 
-#### Image sizes are FHD: 540x405px | HD: 290x218px | SD: 214x144px
+build_version=48
 mm_icon_focus_hd=pkg:/images/podcast-sample-hd.png
 mm_icon_focus_sd=pkg:/images/podcast-sample-sd.png
 mm_icon_side_hd=pkg:/images/podcast-sample-hd.png
 mm_icon_side_sd=pkg:/images/podcast-sample-sd.png
-
-###  Splash Screen + Loading Screen Artwork 
-#### Image sizes are FHD: 1920x1080px | HD: 1280x720px | SD: 720x480px
 splash_screen_fhd=pkg:/images/podcast-sample-fhd.png
 splash_screen_hd=pkg:/images/podcast-sample-hd.png
 splash_screen_sd=pkg:/images/podcast-sample-sd.png
-
-
 splash_color=#121212
 splash_min_time=0
 ui_resolutions=fhd
