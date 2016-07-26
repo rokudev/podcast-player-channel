@@ -10,7 +10,8 @@
         m.WarningTimer.control = "start"
     else if m.global.warning = 2
         m.Warning.visible = true
-        m.Warning.message = "Feed is compatible"
+        m.Warning.title = "Title"
+        m.Warning.message = "Feed is incompatible or may be down at this time."
     end if
     
     m.Title = m.top.findNode("Title") 'Title Label
