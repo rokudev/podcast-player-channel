@@ -1,5 +1,10 @@
 Function RSSParse()
+       m.glb.Addfield("warning", "int", true)
        MyContent = GetPodCastInfo(m.feed)  'Parses through feed given by config.brs file
+       if MyContent = invalid
+       m.glb.warning = 2
+       return invalid
+       end if
        m.glb.Addfield("PodcastTitle", "string", true) 'Adds content for UI. This was not put in a content node because it requires less acessors to get the UI info
        m.glb.Addfield("uri", "string", true)
        m.glb.Addfield("summary", "string", true)
@@ -10,7 +15,6 @@ Function RSSParse()
             m.glb.summary = MyContent["itunes:summary"].getText()
        end if
        m.glb.author = MyContent["itunes:author"].getText()
-       m.glb.Addfield("warning", "int", true)
        m.glb.warning = 0
        
        m.ChildContent = GetEpisodes(m.feed)
@@ -57,6 +61,10 @@ Function GetPodCastInfo(PodcastUrl as String) as object'Used to get main info.. 
     urlString = url.GetToString()
     
     XML = checkXML(urlString)
+    if XML = invalid
+        m.glb.warning =2
+        return invalid
+    end if
     XML = XML.GetChildElements()
     XMLArray = XML.GetChildElements()
     
@@ -75,6 +83,10 @@ Function GetEpisodes(PodcastUrl as String) as object 'Used for episodes, separat
     urlString = url.GetToString()
     
     XML = checkXML(urlString)
+    if XML = invalid
+        m.glb.warning = 2
+        return invalid
+    end if
     XML = XML.GetChildElements()
     XMLArray = XML.GetChildElements()
     
