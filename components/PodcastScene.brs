@@ -1,4 +1,6 @@
- Function init ()
+' ********** Copyright 2016 Roku Corp.  All Rights Reserved. **********
+
+Function init ()
     m.PodcastArt = m.top.findNode("PodcastArt") 'Album Artwork
     m.Background = m.top.findNode("Background") 'Background Artwork
     m.AlbumPlay = m.top.findNode("AlbumPlay") 'Bottom Playbar Artwork

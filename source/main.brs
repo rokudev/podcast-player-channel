@@ -1,3 +1,5 @@
+' ********** Copyright 2016 Roku Corp.  All Rights Reserved. **********
+
 sub main()
        screen = createObject("roSGScreen")
        port = createObject("roMessagePort")
