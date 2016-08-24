@@ -5,7 +5,7 @@ Function RSSParse()
        m.glb.warning = 2
        return invalid
        end if
-       m.glb.Addfield("PodcastTitle", "string", true) 'Adds content for UI. This was not put in a content node because it requires less acessors to get the UI info
+       m.glb.Addfield("PodcastTitle", "string", true) 'Adds content for UI. This was not put in a content node because it requires less accessors to get the UI info
        m.glb.Addfield("uri", "string", true)
        m.glb.Addfield("summary", "string", true)
        m.glb.Addfield("author", "string", true)
@@ -16,10 +16,10 @@ Function RSSParse()
        end if
        m.glb.author = MyContent["itunes:author"].getText()
        m.glb.warning = 0
-       
+
        m.ChildContent = GetEpisodes(m.feed)
-       
-' #### Problem with RSS Feed will be in this for loop ####               
+
+' #### Problem with RSS Feed will be in this for loop ####
        m.TopContent = createObject("roSGNode", "ContentNode") 'Appends all Podcast episodes to a single content node
        for each item in m.ChildContent
             row = createObject("roSGNode", "ContentNode")
@@ -42,13 +42,13 @@ Function RSSParse()
             end if
             if item.DoesExist("itunes:summary")
                 row.Description = item["itunes:summary"].getText()
-            end if    
+            end if
             row.URL = item["enclosure"].getAttributes()["url"]
             if item.DoesExist("itunes:explicit")
                 if  item["itunes:explicit"].getText() = "yes"
                     row.Rating = "R"
                 end if
-            end if    
+            end if
             if duration = 1
                 m.TopContent.appendChild(row)
             end if
@@ -59,7 +59,7 @@ Function GetPodCastInfo(PodcastUrl as String) as object'Used to get main info.. 
     url = createObject("roUrlTransfer")
     url.setUrl(PodcastUrl)
     urlString = url.GetToString()
-    
+
     XML = checkXML(urlString)
     if XML = invalid
         m.glb.warning =2
@@ -67,9 +67,9 @@ Function GetPodCastInfo(PodcastUrl as String) as object'Used to get main info.. 
     end if
     XML = XML.GetChildElements()
     XMLArray = XML.GetChildElements()
-    
+
     result = {}
-    
+
     for each item in XMLArray
         result[item.getName()] = item
     end for
@@ -81,7 +81,7 @@ Function GetEpisodes(PodcastUrl as String) as object 'Used for episodes, separat
     url = createObject("roUrlTransfer")
     url.setUrl(PodcastUrl)
     urlString = url.GetToString()
-    
+
     XML = checkXML(urlString)
     if XML = invalid
         m.glb.warning = 2
@@ -89,7 +89,7 @@ Function GetEpisodes(PodcastUrl as String) as object 'Used for episodes, separat
     end if
     XML = XML.GetChildElements()
     XMLArray = XML.GetChildElements()
-    
+
     episodelist = []
     for each item in XMLArray
         if item.getName() = "item"
