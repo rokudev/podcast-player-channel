@@ -1,6 +1,8 @@
 # Podcast Player Channel
 Fully working podcast player channel - accepts an MRSS feed and parses artwork and playlist.
 
+![Podcast Player Channel](https://raw.githubusercontent.com/rokudev/docs/master/images/podcast-player-sample.png)
+
 
 ## Use Case
 
