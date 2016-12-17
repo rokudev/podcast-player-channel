@@ -15,51 +15,53 @@ Function init ()
         m.Warning.title = "Title"
         m.Warning.message = "Feed is incompatible or may be down at this time."
     end if
-    
+
     m.Title = m.top.findNode("Title") 'Title Label
     m.Author = m.top.findNode("Author") 'Author/Artist Label
-    
+
     m.Summary = m.top.findNode("Summary") ' Description/Summary Label under Album Artwork
-    
+
     m.list.color = m.global.ListColor 'LabelList -- Changes colors of labels
     m.current = m.top.findNode("PodcastPlaying") ' Label for currently playing Podcast located at the bottom of the album artwork
     m.AlbumRect = m.top.findNode("AlbumRect") 'Background shading rectangle for Current Podcast playing label
-    
+
     m.list.SetFocus(true) ' Set Focus on Label List
-    
+
     m.PodcastArt.uri = m.global.uri 'All Posters use the same artwork at different sizes and resolutions
     m.Background.uri = m.global.uri
     m.AlbumPlay.uri = m.global.uri
-    
+
     m.Summary.text = m.global.summary  'Description underneath Album artwork
     m.Summary.color = m.global.SummaryColor 'Text color of Description
     m.Title.text = m.global.PodcastTitle 'Podcast Label of title at top
     m.Author.text = m.global.author 'Podcast label of author at top
-    
+
     m.TimerRect = m.top.findNode("TimeBarFront") 'Purple Time bar located in the playbar that moves as playback plays
     m.TimerAnim = m.top.findNode("TimerAnim") 'Animation to move Purple Time bar
     m.TimerInterp = m.top.findNode("TimerInterp") 'field interpolator for TimerAnim
     m.AudioCurrent = m.top.findNode("AudioCurrent") 'Current playback location time of Audio
     m.AudioDuration = m.top.findNode("AudioDuration") 'Length of selected Audio playback
     m.AudioTime = 0 'variable to keep playback time accurate. Fixes bug with mp3 files
-    
+
     m.Play = m.top.findNode("Play") 'Play button
     m.FFAnim = m.top.findNode("FFAnim") 'FastForward Animation for trickplay
     m.RewindAnim = m.top.findNode("RewindAnim") 'Rewind Animation for trickplay
-    
-    m.Audio = createObject("roSGNode", "Audio") 
+
+    m.Audio = createObject("roSGNode", "Audio")
     m.Audio.notificationInterval = 0.1
     m.AudioDuration.text = secondsToMinutes(0) 'toString Method to format playback string
     m.AudioCurrent.text = secondsToMinutes(0)
-    
+
     m.PlayTime = m.top.findNode("PlayTime") 'One second timer to advance AudioCurrent every second
     m.PlayTime.ObserveField("fire", "TimeUpdate") 'Updates AudioCurrent string
-    
+
     m.WarningTimer.observeField("fire", "closeWarning") 'Dismisses warning message
     m.list.observeField("itemFocused", "setaudio") 'Set's audio content to focused item in Labellist
     m.list.observeField("itemSelected", "playaudio") 'Plays audio content in Label List
     m.global.observeField("FF", "FF") 'Calls function for trickplay when FastForward button is pressed
     m.global.observeField("Rewind", "Rewind") 'Calls function for trickplay when Rewind button is pressed
+
+    m.check = 0 'Initializes m.check before opening a podcast
 end Function
 
 sub closeWarning()
@@ -119,7 +121,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean 'Key functions f
         if key = "replay"
             if (m.Audio.state = "playing")
                 playaudio()
-                
+
                 return true
             end if
         else if key = "play"
@@ -167,9 +169,9 @@ sub skip10Seconds(forward as Boolean) 'trickplay functions. 2 Functions for each
             m.Audio.seek = m.AudioTime
             print m.check
             print "2"
-                
+
         end if
-    else 
+    else
         if m.AudioTime > 10
             m.AudioTime -= 10
             m.TimerInterp.KeyValue = [m.TimerRect.width - m.split*10, 1470]
