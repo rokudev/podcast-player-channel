@@ -56,7 +56,6 @@ Function init ()
     m.PlayTime.ObserveField("fire", "TimeUpdate") 'Updates AudioCurrent string
 
     m.WarningTimer.observeField("fire", "closeWarning") 'Dismisses warning message
-    m.list.observeField("itemFocused", "setaudio") 'Set's audio content to focused item in Labellist
     m.list.observeField("itemSelected", "playaudio") 'Plays audio content in Label List
     m.global.observeField("FF", "FF") 'Calls function for trickplay when FastForward button is pressed
     m.global.observeField("Rewind", "Rewind") 'Calls function for trickplay when Rewind button is pressed
@@ -76,12 +75,6 @@ sub Rewind() 'Rewind function
     skip10Seconds(false)
 end sub
 
-sub setaudio() 'Sets audio content
-    audiocontent = m.list.content.getChild(m.list.itemFocused)
-    m.Summary.text = audiocontent.Description
-    m.Audio.content = audiocontent
-end sub
-
 sub controlaudioplay() 'Makes sure that audio stops when finished
     if (m.audio.state= "finished")
         m.audio.control = "stop"
@@ -99,6 +92,8 @@ end sub
 
 sub playaudio() 'Plays audio and changes Currently playing parameter
     m.audiocontent = m.list.content.getChild(m.list.itemSelected)
+    m.summary.text = m.audiocontent.description
+    m.audio.content = m.audiocontent
     m.check = m.audiocontent.length 'Uses m.check as audiocontent.length to make access to audoicontent.length from other functions faster. m.check will store the length instead of having to re-access it
     print "this is"m.check
     m.audio.control = "stop"
@@ -145,6 +140,7 @@ function onKeyEvent(key as String, press as Boolean) as Boolean 'Key functions f
                 return true
         end if
     end if
+    m.list.setFocus(true)
 end Function
 
 sub skip10Seconds(forward as Boolean) 'trickplay functions. 2 Functions for each FastForward and Rewind to account for edge cases. (Skipping or Rewinding 10 seconds past or before)
