@@ -101,6 +101,11 @@ Function GetEpisodes(PodcastUrl as String) as object 'Used for episodes, separat
         episodelist.Unshift(episodes)
         end if
     end for
+
+    if m.glb.reverseOrder
+        episodelist.reverse()
+    end if
+    
     return episodelist
 End Function
 
