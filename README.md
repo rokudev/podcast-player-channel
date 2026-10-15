@@ -1,3 +1,11 @@
+# podcast-player-channel has moved to GitLab
+
+**This project has moved.** Development now continues at **https://gitlab.com/rokudev/podcast-player-channel**.
+
+This GitHub repository is archived and read-only. It is kept only as a pointer to the new home. Please open new issues and merge requests on GitLab.
+
+---
+
 # Podcast Player Channel
 Fully working podcast player channel - accepts an MRSS feed and parses artwork and playlist.
 
